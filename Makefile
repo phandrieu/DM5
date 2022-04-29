@@ -1,7 +1,6 @@
 # Correction DM 05 : compression de Huffman
 #    MP2I au Lycée Kléber, Lilian Besson
 #    Avril 2022
-#
 
 all:	huffman.exe clean check_compress_and_decompress_proust
 
