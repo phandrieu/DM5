@@ -9,7 +9,7 @@ let main () =
                 end
         else if Sys.argv.(1) = "decomp"
         then Decompress.decompress Sys.argv.(2)
-        else Printf.printf "Usage: huffman comp/decomp fichier.ext"
+        else Printf.printf "Usage: huffman comp/decomp fichier.ext \n"
 ;;
 
 main();;
