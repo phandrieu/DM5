@@ -4,8 +4,7 @@ type tree = Char of int | Node of tree*tree ;;
 
 let taille_alphabet = 256;;
 
-(*Fonctions et types auxiliaires*)
-
+(*Fonctions aux : Créer file prioritaire int array -> tree PriorityQueue.t : crée la file prioritaire et l'initialise*)
 
 let creer_file_prio (tab: int array) : tree PriorityQueue.t = 
         let pq = PriorityQueue.make (taille_alphabet) (0, (Char 0)) in
@@ -13,44 +12,12 @@ let creer_file_prio (tab: int array) : tree PriorityQueue.t =
                 let f_a = tab.(a) in
                 if f_a > 0 
                         then
-                                PriorityQueue.add (Char a) (-f_a) pq (*il faut prendre toujours le plus petit*)
+                                PriorityQueue.add (Char a) (-f_a) pq
         done;
         pq
         ;;
 
 
-(*Fonction auxiliaire : impression arbre -> Débug*)
-
-let rec print_arbre tree = 
-        match tree with
-        | (Char c) -> Printf.printf "%c" (Char.chr c)
-        | Node(t1, t2) -> 
-                begin
-                        Printf.printf "("; print_arbre t1; Printf.printf ","; print_arbre t2; Printf.printf ")"
-                end;
-        Printf.printf "\n"
-;;
-
-let rec print_pq (pq: tree PriorityQueue.t) = 
-        for i = 0 to (pq.length -1) do
-                match pq.elts.(i) with
-                | (p, Char c) -> Printf.printf "%c" (Char.chr c)
-                | (p, Node(t1, t2)) -> 
-                        begin
-                                Printf.printf "("; print_arbre t1; Printf.printf ","; print_arbre t2; Printf.printf ")"
-                        end
-                done
-        
-;;
-
-let rec print_array tab = 
-        Printf.printf "[";
-        for i = 0 to (Array.length tab -1) do
-                Printf.printf " %i ;" (tab.(i));
-        done
-;;
-
-(*Fonctions principales*)
 let build_tree tab : tree = 
         let pq  = (creer_file_prio tab) in
         while (pq.length >= 2) do
@@ -61,7 +28,6 @@ let build_tree tab : tree =
                 PriorityQueue.add n pn pq;
         done;
         let a = PriorityQueue.take pq in
-        print_arbre a;
         a
 ;;
 
@@ -96,10 +62,9 @@ let rec input_tree (inp: FileIO.in_channel_bits) =
         match (FileIO.input_byte inp) with
         |1 -> Char(FileIO.input_byte inp)
         |0 -> begin
-                let x = input_tree inp in
-                let y = input_tree inp in
-                Node(x, y)
-        end
-
+                        let x = input_tree inp in
+                        let y = input_tree inp in
+                        Node(x, y)
+                end
         |_ -> failwith "Fin de l'arbre prématurée"
 ;;

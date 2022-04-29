@@ -1,1 +1,10 @@
 /.vscode
+*.cmi
+*.cmo
+*.cmx
+*.cmt
+*.cmti
+*.cmxa
+*.cmxs
+*.cma
+*.bak.ml
