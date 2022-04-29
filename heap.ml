@@ -27,19 +27,19 @@ let length tas =
         tas.length;;
 
 
-let swap tab i j = 
-  let temp = tab.(j) in 
-  tab.(j) <- tab.(i);
-  tab.(i) <- temp;
+let swap tab x y = (*Fonction de signature 'a array -> int -> int -> unit qui échange les éléments aux cases x, y du tableau*)
+  let tmp = tab.(y) in 
+  tab.(y) <- tab.(x);
+  tab.(x) <- tmp;
 ;;
 
-let add valeur tas =
+let add x tas =
   let n = ref tas.length in 
   if !n = (Array.length tas.elts) then 
     raise HeapOverflow;
 
   tas.length <- !n + 1;
-  tas.elts.(!n) <- valeur; 
+  tas.elts.(!n) <- x; 
   while (!n > 0 && tas.elts.(father !n) < tas.elts.(!n)) do 
     swap tas.elts !n (father !n);
     n := father !n;
@@ -66,8 +66,6 @@ let take (tas : 'a t) : 'a =
         done;
         racine
 ;;
-
-
 
 let peek tas = 
         tas.elts.((length tas) -1)
