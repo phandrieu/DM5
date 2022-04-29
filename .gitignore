@@ -10,5 +10,3 @@
 *.bak.ml
 *.bak.mli
 *.bak
-*.huffman
-*.txt
